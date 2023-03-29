@@ -12,8 +12,12 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Login from './Login'
 import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 import api from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
+
+ import positiveImg from '../images/Union-plus.svg';
+ import negativeImg from '../images/Union.svg';
 
 function App() {
 
@@ -26,6 +30,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+
+  const [tooltip, setTooltip] = React.useState({ image: positiveImg, text: 'Вы успешно зарегистрировались!' });
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -156,6 +162,7 @@ function App() {
           <Route path="/" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in"/>}/>
                
         </Routes>
+        <InfoTooltip tooltip={tooltip}></InfoTooltip>
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
