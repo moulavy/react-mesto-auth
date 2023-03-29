@@ -1,5 +1,17 @@
 import React from 'react';
 function Login() {
+
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      if (!formValue.email || !formValue.password) {
+         return;
+      }
+      auth.authorize(formValue.userName, formValue.password)
+         .then((data) => {
+         if (data.jwt)
+      })
+   }
+
    return (
       <section className="auth">
          <h2 className="auth__title">Вход</h2>
