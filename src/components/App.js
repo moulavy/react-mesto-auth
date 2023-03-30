@@ -14,22 +14,29 @@ import Login from './Login'
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api'
+import {register,authorize,getContent} from '../utils/auth'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
- import positiveImg from '../images/Union-plus.svg';
- import negativeImg from '../images/Union.svg';
+import positiveImg from '../images/Union-plus.svg';
+import negativeImg from '../images/Union.svg';
 
 function App() {
 
   const [currentUser, setCurrentUser] = React.useState({})
   const [cards, setCards] = React.useState([]);
+  const [email, setEmail] = React.useState("");
+
   const [loggedIn, setLoggedIn] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isTooltipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
+
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   const [tooltip, setTooltip] = React.useState({ image: positiveImg, text: 'Вы успешно зарегистрировались!' });
 
@@ -44,6 +51,66 @@ function App() {
       });
 
   }, [])
+
+  React.useEffect(() => {
+    tokenCheckCallback();
+  }, [])
+
+  const loginCallback = (email, password) => {
+    authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          setLoggedIn(true);
+          setEmail(email);
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
+        handleTooltip();
+        console.log(err);
+      })
+  }
+
+  const registerCallback = (email, password) => {
+    register(email, password)
+      .then(() => {
+        setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });
+        handleTooltip();
+        navigate("/signin", { replace: true });
+
+      })
+      .catch((err) => {
+        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
+        handleTooltip();
+        console.log(err);
+      })
+  }
+
+  const tokenCheckCallback = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log("No token.")
+    }
+    else {
+      getContent(token)
+        .then((data) => {
+          setLoggedIn(true);
+          setEmail(data.email);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }
+
+  const logoutCallback = () => {
+    setLoggedIn(false);
+    setEmail('');
+    localStorage.removeItem('token');
+    navigate("/signin", { replace: true });
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -60,6 +127,10 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
+  }
+
+  function handleTooltip() {
+    setIsTooltipPopupOpen(true);
   }
 
   function handleCardDelete(card) {
@@ -142,11 +213,11 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        
+        <Header email={email} onLogout={logoutCallback} />
         <Routes>
-          <Route exact path="/" element={<ProtectedRoute component={Main}
+          <Route path="/" element={<ProtectedRoute component={Main}
             loggedIn={loggedIn}
+            email={email}
             cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -155,12 +226,9 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete} />}
           />
-          <Route exact path="/sign-in" element={<Login/>} />
-          <Route path="/sign-up" element={<Register/>} />
-          
-          
-          <Route path="/" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in"/>}/>
-               
+          <Route path="/signin" element={<Login onLogin={loginCallback} />} />
+          <Route path="/signup" element={<Register onRegister={registerCallback} />} />
+          <Route path="*" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} />
         </Routes>
         <InfoTooltip tooltip={tooltip}></InfoTooltip>
         <EditProfilePopup isOpen={isEditProfilePopupOpen}

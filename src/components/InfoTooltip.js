@@ -1,7 +1,7 @@
 import React from 'react';
 function InfoTooltip(props) {
    return (
-      <section className='popup popup_opened popup-tooltip '>
+      <section className='popup  popup-tooltip '>
          <div className="popup-tooltip__container popup__container">
             <button
                // onClick={props.onClose}

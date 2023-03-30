@@ -1,23 +1,31 @@
 import React from 'react';
-function Login() {
+
+function Login(props) {
+   const [email, setEmail] = React.useState('');
+   const [password, setPassword] = React.useState('');
+
+   function handleChangeEmail(e) {
+      setEmail(e.target.value)
+   }
+
+   function handleChangePassword(e) {
+      setPassword(e.target.value)
+   }
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      if (!formValue.email || !formValue.password) {
+      if (!email || !password) {
          return;
       }
-      auth.authorize(formValue.userName, formValue.password)
-         .then((data) => {
-         if (data.jwt)
-      })
+      props.onLogin(email,password)
    }
 
    return (
       <section className="auth">
          <h2 className="auth__title">Вход</h2>
-         <form className="auth__form">
-            <input className="auth__email auth__input" placeholder="Email"></input>
-            <input className="auth__password auth__input" placeholder="Пароль"></input>
+         <form className="auth__form" onSubmit={handleSubmit}>
+            <input className="auth__email auth__input" value={email} onChange={handleChangeEmail} placeholder="Email"></input>
+            <input className="auth__password auth__input" value={password} onChange={handleChangePassword}  placeholder="Пароль"></input>
             <button type="submit" className="auth__button">Войти</button>
          </form>
          
