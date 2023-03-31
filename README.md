@@ -28,4 +28,4 @@
 git clone git@github.com:moulavy/mesto.git
 2. Запустить приложение:
 npm start
-Приложение будет доступно по адресу http://localhost:3000
+3. Приложение будет доступно по адресу http://localhost:3000
