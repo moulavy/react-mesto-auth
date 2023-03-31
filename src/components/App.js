@@ -98,11 +98,13 @@ function App() {
     }
     else {
       getContent(token)
-        .then((data) => {          
-          setLoggedIn(true);          
-          setEmail(data.email);
-          navigate("/", { replace: true });
-          console.log(`в проверке ток0ена: ${loggedIn}`);
+        .then((res) => {   
+          
+            setLoggedIn(true);
+            setEmail(res.data.email);
+            navigate("/", { replace: true });
+            console.log(res.data.email)
+          
         })
         .catch((err) => {
           console.log(err);
@@ -220,7 +222,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-          {/* <Route path="/" element={loggedIn ? <Navigate to="/" />  : <Navigate to="/signin"/>} /> */}
+           <Route path="*" element={loggedIn ? <Navigate to="/" />  : <Navigate to="/signin"/>} /> 
           <Route path="/" element={<ProtectedRoute
             element={Main}
             loggedIn={loggedIn}
