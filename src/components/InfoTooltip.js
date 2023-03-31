@@ -1,10 +1,10 @@
 import React from 'react';
 function InfoTooltip(props) {
    return (
-      <section className='popup  popup-tooltip '>
+      <section className={(props.isOpen ? 'popup  popup-tooltip popup_opened' : 'popup  popup-tooltip')}>
          <div className="popup-tooltip__container popup__container">
             <button
-               // onClick={props.onClose}
+               onClick={props.onClose}
                aria-label="Close"
                type="button"
                className="popup__button-close popup-tooltip__button-close"

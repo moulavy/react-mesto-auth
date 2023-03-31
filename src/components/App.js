@@ -54,9 +54,7 @@ function App() {
           console.log(err);
         });
     
-  }, [])
-
- 
+  }, []) 
 
   const loginCallback = (email, password) => {
     authorize(email, password)
@@ -64,13 +62,13 @@ function App() {
         if (data.token) {
           localStorage.setItem('token', data.token);
           setLoggedIn(true);
-          setEmail(email);
-          
+          setEmail(email);          
           navigate("/", { replace: true });
         }
       })
       .catch((err) => {
         setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
+        setIsTooltipPopupOpen(true);
         handleTooltip();
         console.log(err);
       })
@@ -80,12 +78,14 @@ function App() {
     register(email, password)
       .then(() => {
         setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });
+        setIsTooltipPopupOpen(true);
         handleTooltip();
         navigate("/signin", { replace: true });
 
       })
       .catch((err) => {
         setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
+        setIsTooltipPopupOpen(true);
         handleTooltip();
         console.log(err);
       })
@@ -154,7 +154,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
-
+    setIsTooltipPopupOpen(false);
   }
 
   function handleCardLike(card) {
@@ -220,7 +220,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-           <Route path="*" element={loggedIn ? <Navigate to="/" />  : <Navigate to="/signin"/>} /> 
+           <Route path="*" element={loggedIn ? <Navigate to="/" replace/>  : <Navigate to="/signin" replace/>} /> 
           <Route path="/" element={<ProtectedRoute
             element={Main}
             loggedIn={loggedIn}
@@ -236,7 +236,7 @@ function App() {
           <Route path="/signin" element={<Login onLogin={loginCallback} />} />
           <Route path="/signup" element={<Register onRegister={registerCallback} />} />          
         </Routes>
-        <InfoTooltip tooltip={tooltip}></InfoTooltip>
+        <InfoTooltip tooltip={tooltip} isOpen={isTooltipPopupOpen} onClose={closeAllPopups}></InfoTooltip>
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
