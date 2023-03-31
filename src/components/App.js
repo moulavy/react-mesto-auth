@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -215,7 +215,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-          <Route path="/" element={<ProtectedRoute component={Main}
+          <Route path="/" element={<ProtectedRoute element={Main}
             loggedIn={loggedIn}
             email={email}
             cards={cards}
@@ -228,7 +228,7 @@ function App() {
           />
           <Route path="/signin" element={<Login onLogin={loginCallback} />} />
           <Route path="/signup" element={<Register onRegister={registerCallback} />} />
-          <Route path="*" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} />
+          <Route path="/" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} />
         </Routes>
         <InfoTooltip tooltip={tooltip}></InfoTooltip>
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
