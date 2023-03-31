@@ -6,16 +6,16 @@ function Header(props) {
       <header className="header container">
          <img src={logo} alt="Логотип" className="header__logo" />
          <div className="header__info">
-            {props.email && <p className='header__email'></p>}
+            {props.email && <p className='header__email'>{props.email}</p>}
             <Routes>
                <Route path='/signin' element={
-                  <Link className='header__button' to='/signup'>Зарегистрироваться</Link>
+                  <Link className='header__button' to='/signup'>Регистрация</Link>
                } />
                <Route path='/signup' element={
                   <Link className='header__button' to='/signin'>Войти</Link>
                } />
                <Route path='/' element={
-                  <Link className='header__button' to='/signin' onClick={props.onLogout}>Войти</Link>
+                  <Link className='header__button header__button_value_logout' to='/signin' onClick={props.onLogout}>Выйти</Link>
                } />
             </Routes>
 

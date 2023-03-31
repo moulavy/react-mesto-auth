@@ -41,20 +41,22 @@ function App() {
   const [tooltip, setTooltip] = React.useState({ image: positiveImg, text: 'Вы успешно зарегистрировались!' });
 
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([resUser, resCards]) => {
-        setCurrentUser(resUser);
-        setCards(resCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-  }, [])
-
-  React.useEffect(() => {
     tokenCheckCallback();
   }, [])
+
+  React.useEffect(() => {    
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([resUser, resCards]) => {
+          setCurrentUser(resUser);
+          setCards(resCards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    
+  }, [])
+
+ 
 
   const loginCallback = (email, password) => {
     authorize(email, password)
@@ -63,6 +65,7 @@ function App() {
           localStorage.setItem('token', data.token);
           setLoggedIn(true);
           setEmail(email);
+          
           navigate("/", { replace: true });
         }
       })
@@ -95,9 +98,11 @@ function App() {
     }
     else {
       getContent(token)
-        .then((data) => {
-          setLoggedIn(true);
+        .then((data) => {          
+          setLoggedIn(true);          
           setEmail(data.email);
+          navigate("/", { replace: true });
+          console.log(`в проверке ток0ена: ${loggedIn}`);
         })
         .catch((err) => {
           console.log(err);
@@ -215,7 +220,9 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-          <Route path="/" element={<ProtectedRoute element={Main}
+          {/* <Route path="/" element={loggedIn ? <Navigate to="/" />  : <Navigate to="/signin"/>} /> */}
+          <Route path="/" element={<ProtectedRoute
+            element={Main}
             loggedIn={loggedIn}
             email={email}
             cards={cards}
@@ -227,8 +234,7 @@ function App() {
             onCardDelete={handleCardDelete} />}
           />
           <Route path="/signin" element={<Login onLogin={loginCallback} />} />
-          <Route path="/signup" element={<Register onRegister={registerCallback} />} />
-          <Route path="/" element={loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />} />
+          <Route path="/signup" element={<Register onRegister={registerCallback} />} />          
         </Routes>
         <InfoTooltip tooltip={tooltip}></InfoTooltip>
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
