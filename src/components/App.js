@@ -98,13 +98,11 @@ function App() {
     }
     else {
       getContent(token)
-        .then((res) => {   
-          
+        .then((res) => {             
             setLoggedIn(true);
             setEmail(res.data.email);
             navigate("/", { replace: true });
-            console.log(res.data.email)
-          
+          console.log(res.data.email);          
         })
         .catch((err) => {
           console.log(err);

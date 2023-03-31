@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import logo from '../logo.svg';
-function Header(props) {
-   console.log(props.email);
+function Header(props) {   
    return (
       <header className="header container">
          <img src={logo} alt="Логотип" className="header__logo" />
