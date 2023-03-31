@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
-import ProtectedRoute from './ProtectedRoute.js';
+import ProtectedRoute from './ProtectedRoute';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
