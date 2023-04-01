@@ -220,7 +220,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-           <Route path="*" element={loggedIn ? <Navigate to="/" replace/>  : <Navigate to="/signin" replace/>} /> 
+            
           <Route path="/" element={<ProtectedRoute
             element={Main}
             loggedIn={loggedIn}
@@ -234,9 +234,11 @@ function App() {
             onCardDelete={handleCardDelete} />}
           />
           <Route path="/signin" element={<Login onLogin={loginCallback} />} />
-          <Route path="/signup" element={<Register onRegister={registerCallback} />} />          
+          <Route path="/signup" element={<Register onRegister={registerCallback} />} />
+          <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
         </Routes>
         <InfoTooltip tooltip={tooltip} isOpen={isTooltipPopupOpen} onClose={closeAllPopups}></InfoTooltip>
+
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
