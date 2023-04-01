@@ -3,12 +3,12 @@ import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
    const [nameCard, setNameCard] = React.useState('');
-   const [link, setLink] = React.useState(''); 
-   
+   const [link, setLink] = React.useState('');
+
    React.useEffect(() => {
       setNameCard('');
       setLink('');
-   }, [props.isOpen]); 
+   }, [props.isOpen]);
 
    function handleChangeNameCard(e) {
       setNameCard(e.target.value);

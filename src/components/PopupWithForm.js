@@ -1,7 +1,7 @@
 import React from 'react';
 function PopupWithForm(props) {
    return (
-      <section className={(props.isOpen ? `popup popup_opened popup-${props.name} `:`popup popup-${props.name} `)}>
+      <section className={(props.isOpen ? `popup popup_opened popup-${props.name} ` : `popup popup-${props.name} `)}>
          <form
             onSubmit={props.onSubmit}
             noValidate

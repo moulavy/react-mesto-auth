@@ -6,12 +6,11 @@ function EditAvatarPopup(props) {
       avatarRef.current.value = '';
    }, [props.isOpen]);
 
-
    function handleSubmit(e) {
       e.preventDefault();
       props.onUpdateAvatar({
          avatar: avatarRef.current.value,
-      });      
+      });
    }
 
    return (
@@ -37,7 +36,7 @@ function EditAvatarPopup(props) {
                <span className="avatar-input-error popup__error popup__error_visible"></span>
             </>
          }
-      />           
+      />
    )
 }
 

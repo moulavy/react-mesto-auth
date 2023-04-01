@@ -9,9 +9,9 @@ function InfoTooltip(props) {
                type="button"
                className="popup__button-close popup-tooltip__button-close"
             ></button>
-             <img className="popup-tooltip__image" src={props.tooltip.image} alt={props.tooltip.text} />
-            <h2 className="popup-tooltip__title" >{props.tooltip.text}</h2> 
-            
+            <img className="popup-tooltip__image" src={props.tooltip.image} alt={props.tooltip.text} />
+            <h2 className="popup-tooltip__title" >{props.tooltip.text}</h2>
+
          </div>
       </section>
    );

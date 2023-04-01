@@ -14,7 +14,7 @@ import Login from './Login'
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api'
-import {register,authorize,getContent} from '../utils/auth'
+import { register, authorize, getContent } from '../utils/auth'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 import positiveImg from '../images/Union-plus.svg';
@@ -44,17 +44,17 @@ function App() {
     tokenCheckCallback();
   }, [])
 
-  React.useEffect(() => {    
-      Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([resUser, resCards]) => {
-          setCurrentUser(resUser);
-          setCards(resCards);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    
-  }, []) 
+  React.useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([resUser, resCards]) => {
+        setCurrentUser(resUser);
+        setCards(resCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }, [])
 
   const loginCallback = (email, password) => {
     authorize(email, password)
@@ -62,7 +62,7 @@ function App() {
         if (data.token) {
           localStorage.setItem('token', data.token);
           setLoggedIn(true);
-          setEmail(email);          
+          setEmail(email);
           navigate("/", { replace: true });
         }
       })
@@ -98,11 +98,11 @@ function App() {
     }
     else {
       getContent(token)
-        .then((res) => {             
-            setLoggedIn(true);
-            setEmail(res.data.email);
-            navigate("/", { replace: true });
-          console.log(res.data.email);          
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          navigate("/", { replace: true });
+          console.log(res.data.email);
         })
         .catch((err) => {
           console.log(err);
@@ -220,7 +220,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} onLogout={logoutCallback} />
         <Routes>
-            
+
           <Route path="/" element={<ProtectedRoute
             element={Main}
             loggedIn={loggedIn}
