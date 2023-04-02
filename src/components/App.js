@@ -95,18 +95,19 @@ function App() {
   const registerCallback = (email, password) => {
     register(email, password)
       .then(() => {
-        setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });
-        setIsTooltipPopupOpen(true);
+        setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });        
         handleTooltip();
         navigate("/signin", { replace: true });
 
       })
       .catch((err) => {
-        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
-        setIsTooltipPopupOpen(true);
+        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });        
         handleTooltip();
         console.log(err);
       })
+      .finally(() => {
+        setIsTooltipPopupOpen(true);
+    })
   }
 
   const tokenCheckCallback = () => {

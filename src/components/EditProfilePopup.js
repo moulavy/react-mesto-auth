@@ -34,38 +34,35 @@ function EditProfilePopup({isOpen,onUpdateUser,onClose,isLoading}) {
          name='edit'
          title='Редактировать профиль'
          textButton={isLoading ? 'Сохранение...' : 'Сохранить'}
-         button='save'
-         children={
-            <>
-               <input
-                  onChange={handleChangeName}
-                  value={name || ''}
-                  placeholder="Имя"
-                  name="name"
-                  id="name-input"
-                  type="text"
-                  minLength="2"
-                  maxLength="40"
-                  required
-                  className="popup__input popup__input_value_name"
-               />
-               <span className="name-input-error popup__error popup__error_visible"></span>
-               <input
-                  value={description || ''}
-                  onChange={handleChangeDescription}
-                  placeholder="О себе"
-                  id="description-input"
-                  name="about"
-                  minLength="2"
-                  maxLength="200"
-                  required
-                  type="text"
-                  className="popup__input popup__input_value_description"
-               />
-               <span className="description-input-error popup__error popup__error_visible"></span>
-            </>
-         }
-      />
+         button='save'         
+      >
+         <input
+            onChange={handleChangeName}
+            value={name || ''}
+            placeholder="Имя"
+            name="name"
+            id="name-input"
+            type="text"
+            minLength="2"
+            maxLength="40"
+            required
+            className="popup__input popup__input_value_name"
+         />
+         <span className="name-input-error popup__error popup__error_visible"></span>
+         <input
+            value={description || ''}
+            onChange={handleChangeDescription}
+            placeholder="О себе"
+            id="description-input"
+            name="about"
+            minLength="2"
+            maxLength="200"
+            required
+            type="text"
+            className="popup__input popup__input_value_description"
+         />
+         <span className="description-input-error popup__error popup__error_visible"></span>
+      </PopupWithForm>
    )
 }
 export default EditProfilePopup;

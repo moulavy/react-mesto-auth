@@ -32,36 +32,33 @@ function AddPlacePopup({isOpen, onAddPlace, onClose,isLoading}) {
          name='add'
          title='Новое место'
          textButton={isLoading ? 'Создание...' : 'Создать'}
-         button='add'
-         children={
-            <>
-               <input
-                  onChange={handleChangeNameCard}
-                  value={nameCard}
-                  id="name-img-input"
-                  type="text"
-                  minLength="2"
-                  maxLength="30"
-                  name="name"
-                  required
-                  placeholder="Название"
-                  className="popup__input popup__input_value_name-img"
-               />
-               <span className="popup__error popup__error_visible name-img-input-error"></span>
-               <input
-                  onChange={handleChangeUrl}
-                  value={link}
-                  id="link-img-input"
-                  type="url"
-                  required
-                  name="link"
-                  placeholder="Ссылка на картинку"
-                  className="popup__input popup__input_value_link-img"
-               />
-               <span className="popup__error popup__error_visible link-img-input-error"></span>
-            </>
-         }
-      />
+         button='add'         
+      >
+         <input
+            onChange={handleChangeNameCard}
+            value={nameCard}
+            id="name-img-input"
+            type="text"
+            minLength="2"
+            maxLength="30"
+            name="name"
+            required
+            placeholder="Название"
+            className="popup__input popup__input_value_name-img"
+         />
+         <span className="popup__error popup__error_visible name-img-input-error"></span>
+         <input
+            onChange={handleChangeUrl}
+            value={link}
+            id="link-img-input"
+            type="url"
+            required
+            name="link"
+            placeholder="Ссылка на картинку"
+            className="popup__input popup__input_value_link-img"
+         />
+         <span className="popup__error popup__error_visible link-img-input-error"></span>
+      </PopupWithForm>
    )
 }
 export default AddPlacePopup;
