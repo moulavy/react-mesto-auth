@@ -14,7 +14,7 @@ import Login from './Login'
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api'
-import { register, authorize, getContent } from '../utils/auth'
+import { register, authorize, checkToken } from '../utils/auth'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 import positiveImg from '../images/Union-plus.svg';
@@ -97,7 +97,7 @@ function App() {
       console.log("No token.")
     }
     else {
-      getContent(token)
+      checkToken(token)
         .then((res) => {
           setLoggedIn(true);
           setEmail(res.data.email);
