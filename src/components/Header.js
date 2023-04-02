@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import logo from '../logo.svg';
-function Header(props) {
+function Header({email,onLogout}) {
    return (
       <header className="header container">
          <img src={logo} alt="Логотип" className="header__logo" />
          <div className="header__info">
-            {props.email && <p className='header__email'>{props.email}</p>}
+            {email && <p className='header__email'>{email}</p>}
             <Routes>
                <Route path='/signin' element={
                   <Link className='header__button' to='/signup'>Регистрация</Link>
@@ -15,7 +15,7 @@ function Header(props) {
                   <Link className='header__button' to='/signin'>Войти</Link>
                } />
                <Route path='/' element={
-                  <Link className='header__button header__button_value_logout' to='/signin' onClick={props.onLogout}>Выйти</Link>
+                  <Link className='header__button header__button_value_logout' to='/signin' onClick={onLogout}>Выйти</Link>
                } />
             </Routes>
 

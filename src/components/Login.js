@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Login(props) {
+function Login({onLogin}) {
    const [email, setEmail] = React.useState('');
    const [password, setPassword] = React.useState('');
 
@@ -17,7 +17,7 @@ function Login(props) {
       if (!email || !password) {
          return;
       }
-      props.onLogin(email, password)
+      onLogin(email, password)
    }
 
    return (
