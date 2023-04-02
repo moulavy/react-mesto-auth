@@ -41,6 +41,22 @@ function App() {
 
   const [tooltip, setTooltip] = React.useState({ image: positiveImg, text: 'Вы успешно зарегистрировались!' });
 
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen || isTooltipPopupOpen;
+
+  React.useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]) 
+
   React.useEffect(() => {
     tokenCheckCallback();
   }, [])
@@ -56,6 +72,7 @@ function App() {
       });
 
   }, [])
+
 
   const loginCallback = (email, password) => {
     authorize(email, password)
@@ -149,6 +166,7 @@ function App() {
       });
   }
 
+  
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -160,7 +178,6 @@ function App() {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
     if (!isLiked) {
       api.addLike(card._id)
