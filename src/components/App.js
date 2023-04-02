@@ -27,6 +27,7 @@ function App() {
   const [email, setEmail] = React.useState("");
 
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -101,8 +102,7 @@ function App() {
         .then((res) => {
           setLoggedIn(true);
           setEmail(res.data.email);
-          navigate("/", { replace: true });
-          console.log(res.data.email);
+          navigate("/", { replace: true });          
         })
         .catch((err) => {
           console.log(err);
@@ -183,6 +183,7 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    setIsLoading(true);
     api.updateUserInfo(data)
       .then((res) => {
         setCurrentUser(res);
@@ -191,9 +192,13 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsLoading(false);
+    })
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api.updateAvatar(data)
       .then((res) => {
         setCurrentUser(res);
@@ -202,9 +207,13 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   function handleAddPlaceSubmit(data) {
+    setIsLoading(true);
     api.addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -212,6 +221,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       })
   }
 
@@ -240,7 +252,7 @@ function App() {
         <InfoTooltip tooltip={tooltip} isOpen={isTooltipPopupOpen} onClose={closeAllPopups}></InfoTooltip>
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isLoading={isLoading} />
 
         <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm
@@ -249,8 +261,8 @@ function App() {
           textButton='Да'
           button='confirm'
         />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+        <EditAvatarPopup isLoading={isLoading} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+        <AddPlacePopup isLoading={isLoading} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
         <Footer />
       </CurrentUserContext.Provider>
     </div>
