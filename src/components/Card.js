@@ -1,6 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-function Card({card,onCardClick,onCardLike,onCardDelete}) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
    const currentUser = React.useContext(CurrentUserContext);
    // Определяем, являемся ли мы владельцем текущей карточки

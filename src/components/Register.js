@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-function Register({onRegister}) {
+function Register({ onRegister }) {
    const [email, setEmail] = React.useState('');
    const [password, setPassword] = React.useState('');
 
@@ -30,7 +30,6 @@ function Register({onRegister}) {
          <div className="auth__login">
             <p className="auth__question">Уже зарегистрированы?</p>
             <Link to='/signin' className="auth__link">Войти</Link>
-
          </div>
       </section>
    );

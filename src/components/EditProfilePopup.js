@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditProfilePopup({isOpen,onUpdateUser,onClose,isLoading}) {
+function EditProfilePopup({ isOpen, onUpdateUser, onClose, isLoading }) {
    const [name, setName] = React.useState('');
    const [description, setDescription] = React.useState('');
    const currentUser = React.useContext(CurrentUserContext);
@@ -34,7 +34,7 @@ function EditProfilePopup({isOpen,onUpdateUser,onClose,isLoading}) {
          name='edit'
          title='Редактировать профиль'
          textButton={isLoading ? 'Сохранение...' : 'Сохранить'}
-         button='save'         
+         button='save'
       >
          <input
             onChange={handleChangeName}

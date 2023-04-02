@@ -26,14 +26,14 @@ function Main({ cards, onEditAvatar, onEditProfile, onAddPlace, onCardLike, onCa
          <section className="elements">
             <ul className="elements__list">
                {cards.map((card) =>
-                 ( <Card
-                     onCardLike={onCardLike}
-                     onCardClick={onCardClick}
-                     onCardDelete={onCardDelete}
-                     card={card}
-                     key={card._id}
+               (<Card
+                  onCardLike={onCardLike}
+                  onCardClick={onCardClick}
+                  onCardDelete={onCardDelete}
+                  card={card}
+                  key={card._id}
                />
-                 )
+               )
                )}
             </ul>
          </section>

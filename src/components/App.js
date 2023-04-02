@@ -55,7 +55,7 @@ function App() {
         document.removeEventListener('keydown', closeByEscape);
       }
     }
-  }, [isOpen]) 
+  }, [isOpen])
 
   React.useEffect(() => {
     tokenCheckCallback();
@@ -95,19 +95,19 @@ function App() {
   const registerCallback = (email, password) => {
     register(email, password)
       .then(() => {
-        setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });        
+        setTooltip({ image: positiveImg, text: "Вы успешно зарегистрировались!" });
         handleTooltip();
         navigate("/signin", { replace: true });
 
       })
       .catch((err) => {
-        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });        
+        setTooltip({ image: negativeImg, text: "Что-то пошло не так! Попробуйте еще раз." });
         handleTooltip();
         console.log(err);
       })
       .finally(() => {
         setIsTooltipPopupOpen(true);
-    })
+      })
   }
 
   const tokenCheckCallback = () => {
@@ -120,7 +120,7 @@ function App() {
         .then((res) => {
           setLoggedIn(true);
           setEmail(res.data.email);
-          navigate("/", { replace: true });          
+          navigate("/", { replace: true });
         })
         .catch((err) => {
           console.log(err);
@@ -167,7 +167,7 @@ function App() {
       });
   }
 
-  
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -212,7 +212,7 @@ function App() {
       })
       .finally(() => {
         setIsLoading(false);
-    })
+      })
   }
 
   function handleUpdateAvatar(data) {
