@@ -3,8 +3,7 @@ function PopupWithForm(props) {
    return (
       <section className={(props.isOpen ? `popup popup_opened popup-${props.name} ` : `popup popup-${props.name} `)}>
          <form
-            onSubmit={props.onSubmit}
-            noValidate
+            onSubmit={props.onSubmit}           
             className={`popup__form popup__container popup-${props.name}__container`}
          >
             <button
